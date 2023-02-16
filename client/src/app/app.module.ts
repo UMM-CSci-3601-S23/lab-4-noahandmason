@@ -31,6 +31,8 @@ import { UserCardComponent } from './users/user-card.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { UserService } from './users/user.service';
+import { TodolistComponent } from './todos/todolist/todolist.component';
+import { TodoListComponent } from './todos/todo-list/todo-list.component';
 
 const MATERIAL_MODULES: any[] = [
   MatButtonModule,
@@ -59,6 +61,8 @@ const MATERIAL_MODULES: any[] = [
     UserCardComponent,
     UserProfileComponent,
     AddUserComponent,
+    TodolistComponent,
+    TodoListComponent,
   ],
   imports: [
     BrowserModule,
