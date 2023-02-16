@@ -26,37 +26,23 @@ export class TodoService {
   constructor(private httpClient: HttpClient) {
   }
 
-  /**
-   * Get all the todos from the server, filtered by the information
-   * in the `filters` map.
-   *
-   * It would be more consistent with `TodoListComponent` if this
-   * only supported filtering on age and role, and left company to
-   * just be in `filterTodos()` below. We've included it here, though,
-   * to provide some additional examples.
-   *
-   * @param filters a map that allows us to specify a target role, age,
-   *  or company to filter by, or any combination of those
-   * @returns an `Observable` of an array of `Todos`. Wrapping the array
-   *  in an `Observable` means that other bits of of code can `subscribe` to
-   *  the result (the `Observable`) and get the results that come back
-   *  from the server after a possibly substantial delay (because we're
-   *  contacting a remote server over the Internet).
-   */
-   getTodos(filters?: { role?: TodoRole; age?: number; company?: string }): Observable<Todo[]> {
+   getTodos(filters?: { owner?: string; body?: string; category?: string; status?: string  }): Observable<Todo[]> {
     // `HttpParams` is essentially just a map used to hold key-value
     // pairs that are then encoded as "?key1=value1&key2=value2&…" in
     // the URL when we make the call to `.get()` below.
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-      if (filters.role) {
-        httpParams = httpParams.set('role', filters.role);
+      if (filters.owner) {
+        httpParams = httpParams.set('owner', filters.owner);
       }
-      if (filters.age) {
-        httpParams = httpParams.set('age', filters.age.toString());
+      if (filters.body) {
+        httpParams = httpParams.set('contains', filters.body);
       }
-      if (filters.company) {
-        httpParams = httpParams.set('company', filters.company);
+      if (filters.category) {
+        httpParams = httpParams.set('category', filters.category);
+      }
+      if (filters.status) {
+        httpParams = httpParams.set('status', filters.status);
       }
     }
     // Send the HTTP GET request with the given URL and parameters.
@@ -89,19 +75,31 @@ export class TodoService {
    * @param filters the map of key-value pairs used for the filtering
    * @returns an array of `Todos` matching the given filters
    */
-   filterTodos(todos: Todo[], filters: { name?: string; company?: string }): Todo[] {
+   filterTodos(todos: Todo[], filters: { owner?: string; body?: string; category?: string; status?: string}): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.name) {
-      filters.name = filters.name.toLowerCase();
+    if (filters.owner) {
+      filters.owner = filters.owner.toLowerCase();
 
-      filteredTodos = filteredTodos.filter(todo => todo.name.toLowerCase().indexOf(filters.name) !== -1);
+      filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.owner) !== -1);
     }
 
-    if (filters.company) {
-      filters.company = filters.company.toLowerCase();
+    if (filters.body) {
+      filters.body = filters.body.toLowerCase();
 
-      filteredTodos = filteredTodos.filter(todo => todo.company.toLowerCase().indexOf(filters.company) !== -1);
+      filteredTodos = filteredTodos.filter(todo => todo.body.toLowerCase().indexOf(filters.body) !== -1);
+    }
+
+    if (filters.category) {
+      filters.category = filters.category.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => todo.category.toLowerCase().indexOf(filters.category) !== -1);
+    }
+
+    if (filters.status) {
+      filters.status = filters.status.toLowerCase();
+
+      filteredTodos = filteredTodos.filter(todo => todo.status.toLowerCase().indexOf(filters.status) !== -1);
     }
 
     return filteredTodos;
