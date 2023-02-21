@@ -21,6 +21,19 @@
             [(ngModel)]="todoCategory" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Sort By</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="sortBy" data-test="todoSortBySelect">
+              <mat-option>--</mat-option>
+              <mat-option value="owner">Owner</mat-option>
+              <mat-option value="category">Category</mat-option>
+              <mat-option value="body">Body</mat-option>
+              <mat-option value="status">Status</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
         </div>
         <div class="flex-row gap-10 flex-wrap">
           <!-- Examples of filtering on the server -->
@@ -53,12 +66,20 @@
 
 
         <br>
+
+
         <div class="flex-row gap-10 flex-wrap">
           <label>View type: </label>
           <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
             <mat-radio-button value="card">Card</mat-radio-button>
             <mat-radio-button value="list">List</mat-radio-button>
           </mat-radio-group>
+          <div matRipple >
+            <button (click)="switchOrderBy()" mat-raised-button class="switch-order-by" matTooltip="Swtich order (descending or ascending)" matTooltipPosition="left" data-test="switchOrderBy">
+              Switch Order
+            </button>
+          </div>
+
         </div>
 
       </mat-card-content>
