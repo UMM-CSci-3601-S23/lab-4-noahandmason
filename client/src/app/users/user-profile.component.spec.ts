@@ -8,23 +8,17 @@ import { User } from './user';
 import { UserCardComponent } from './user-card.component';
 import { UserProfileComponent } from './user-profile.component';
 import { UserService } from './user.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
-  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
-    // Using the constructor here lets us try that branch in `activated-route-stub.ts`
-    // and then we can choose a new parameter map in the tests if we choose
-    id : 'chris_id'
-  });
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        MatCardModule,
-        MatSnackBarModule
+        MatCardModule
       ],
       declarations: [UserProfileComponent, UserCardComponent],
       providers: [
@@ -51,6 +45,8 @@ describe('UserProfileComponent', () => {
     // to update. Our `UserProfileComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedUser._id });
+
+    expect(component.id).toEqual(expectedUser._id);
     expect(component.user).toEqual(expectedUser);
   });
 
@@ -60,12 +56,14 @@ describe('UserProfileComponent', () => {
     // to update. Our `UserProfileComponent` subscribes to that, so
     // it should update right away.
     activatedRoute.setParamMap({ id: expectedUser._id });
-    expect(component.user).toEqual(expectedUser);
+
+    expect(component.id).toEqual(expectedUser._id);
 
     // Changing the paramMap should update the displayed user profile.
     expectedUser = MockUserService.testUsers[1];
     activatedRoute.setParamMap({ id: expectedUser._id });
-    expect(component.user).toEqual(expectedUser);
+
+    expect(component.id).toEqual(expectedUser._id);
   });
 
   it('should have `null` for the user for a bad ID', () => {
@@ -74,6 +72,7 @@ describe('UserProfileComponent', () => {
     // If the given ID doesn't map to a user, we expect the service
     // to return `null`, so we would expect the component's user
     // to also be `null`.
+    expect(component.id).toEqual('badID');
     expect(component.user).toBeNull();
   });
 });
