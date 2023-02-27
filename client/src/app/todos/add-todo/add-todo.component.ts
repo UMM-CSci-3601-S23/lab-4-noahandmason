@@ -30,6 +30,10 @@ export class AddTodoComponent implements OnInit {
       {type: 'minlength', message: 'Category must be at least 2 characters long'},
       {type: 'maxlength', message: 'Category cannot be more than 50 characters long'},
     ],
+    status: [
+      {type: 'required', message: 'Status is required'},
+      { type: 'pattern', message: 'Status must be either complete, or incomplete' }
+    ],
 
     body: [
       {type: 'maxlength', message: 'Body  cannot be more than 300 characters long'}
@@ -47,20 +51,12 @@ export class AddTodoComponent implements OnInit {
       owner: new UntypedFormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        // In the real world you'd want to be very careful about having
-        // an upper limit like this because people can sometimes have
-        // very long owners. This demonstrates that it's possible, though,
-        // to have maximum length limits.
         Validators.maxLength(50),
       ])),
 
       category: new UntypedFormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        // In the real world you'd want to be very careful about having
-        // an upper limit like this because people can sometimes have
-        // very long categories. This demonstrates that it's possible, though,
-        // to have maximum length limits.
         Validators.maxLength(50),
       ])),
 
@@ -68,9 +64,11 @@ export class AddTodoComponent implements OnInit {
         Validators.maxLength(300),
       ])),
 
-      // We don't care much about what is in the company field, so we just add it here as part of the form
-      // without any particular validation.
-      status: new UntypedFormControl(),
+
+      status: new UntypedFormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^(complete|incomplete)$')
+      ])),
     });
 
   }
@@ -81,6 +79,13 @@ export class AddTodoComponent implements OnInit {
 
 
   submitForm() {
+    // eslint-disable-next-line prefer-const
+    let todo = this.addTodoForm.value;
+    if (todo.status === 'incomplete'){
+      todo.status = 'false';
+    }
+    else {todo.status = 'true';}
+
     this.todoService.addTodo(this.addTodoForm.value).subscribe({
       next: (newID) => {
         this.snackBar.open(

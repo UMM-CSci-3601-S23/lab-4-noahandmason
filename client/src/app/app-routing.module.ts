@@ -13,8 +13,8 @@ const routes: Routes = [
   {path: 'users', component: UserListComponent, title: 'Users'},
   {path: 'users/:id', component: UserProfileComponent, title: 'User Profile'},
   {path: 'todos', component: TodoListComponent, title: 'Todos'},
-  {path: 'todos/:id', component: TodoProfileComponent, title: 'Todo Profile'},
-  {path: 'todos/new', component: AddTodoComponent, title: 'New Todo'}
+  {path: 'todos/new', component: AddTodoComponent, title: 'New Todo'},
+  {path: 'todos/:id', component: TodoProfileComponent, title: 'Todo Profile'}
 ];
 
 @NgModule({

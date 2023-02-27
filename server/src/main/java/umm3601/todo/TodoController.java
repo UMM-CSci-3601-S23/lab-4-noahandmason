@@ -157,11 +157,8 @@ public class TodoController {
      */
     Todo newTodo = ctx.bodyValidator(Todo.class)
       .check(usr -> usr.owner != null && usr.owner.length() > 0, "Todo must have a non-empty todo name")
-      .check(usr -> usr.category != null && usr.body.length() > 0, "Todo must have a non-empty company name")
       .check(usr -> usr.body != null && usr.body.length() > 0, "Todo must have a non-empty company name")
       .get();
-
-
     todoCollection.insertOne(newTodo);
 
     ctx.json(Map.of("id", newTodo._id));
