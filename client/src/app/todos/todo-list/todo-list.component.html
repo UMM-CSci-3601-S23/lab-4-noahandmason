@@ -79,13 +79,21 @@
               Switch Order
             </button>
           </div>
-
+          <div matRipple >
+            <button mat-fab class="add-todo-fab" matTooltip="Add Todo" matTooltipPosition="left" routerLink="/todos/new" data-test="addTodoButton">
+              <mat-icon class="md-24" aria-label="Add Todo">add</mat-icon>
+            </button>
+          </div>
         </div>
 
       </mat-card-content>
     </mat-card>
+
   </div>
+
 </div>
+
+
 
 <div class="flex-row">
   <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else todosError" >
@@ -128,3 +136,5 @@
   </ng-template>
 
 </div>
+
+
