@@ -118,7 +118,12 @@ public class TodoController {
       if (status.equals("complete")) {
         statusValue = true;
       }
+      String statusValueString = "false";
+      if (status.equals("complete")) {
+        statusValueString = "true";
+      }
       filters.add(eq(STATUS_KEY, statusValue));
+      filters.add(eq(STATUS_KEY, statusValueString));
     }
 
     // Combine the list of filters into a single filtering document.
@@ -155,6 +160,7 @@ public class TodoController {
      *    - The provided role is valid (one of "admin", "editor", or "viewer")
      *    - A non-blank company is provided
      */
+
     Todo newTodo = ctx.bodyValidator(Todo.class)
       .check(usr -> usr.owner != null && usr.owner.length() > 0, "Todo must have a non-empty todo name")
       .check(usr -> usr.body != null && usr.body.length() > 0, "Todo must have a non-empty company name")

@@ -82,11 +82,11 @@ export class AddTodoComponent implements OnInit {
     // eslint-disable-next-line prefer-const
     let todo = this.addTodoForm.value;
     if (todo.status === 'incomplete'){
-      todo.status = 'false';
+      todo.status = false;
     }
-    else {todo.status = 'true';}
+    else {todo.status = true;}
 
-    this.todoService.addTodo(this.addTodoForm.value).subscribe({
+    this.todoService.addTodo(todo).subscribe({
       next: (newID) => {
         this.snackBar.open(
           `Added todo ${this.addTodoForm.value.owner}`,
