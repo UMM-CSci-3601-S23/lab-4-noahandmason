@@ -10,7 +10,7 @@
 
           <mat-form-field class="input-field">
             <mat-label>Body</mat-label>
-            <input matInput data-test="todoOwnerInput" placeholder="Filter by owner"
+            <input matInput data-test="todoBodyInput" placeholder="Filter by owner"
             [(ngModel)]="todoBody" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
@@ -50,7 +50,7 @@
 
           <mat-form-field class="input-field">
             <mat-label>Owner</mat-label>
-            <input matInput data-test="todoBodyInput" type="string" placeholder="Filter by body"
+            <input matInput data-test="todoOwnerInput" type="string" placeholder="Filter by body"
             [(ngModel)]="todoOwner" (input)="getTodosFromServer()">
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>
@@ -75,7 +75,7 @@
             <mat-radio-button value="list">List</mat-radio-button>
           </mat-radio-group>
           <div matRipple >
-            <button (click)="switchOrderBy()" mat-raised-button class="switch-order-by" matTooltip="Swtich order (descending or ascending)" matTooltipPosition="left" data-test="switchOrderBy">
+            <button (click)="switchOrderBy()" mat-raised-button class="switch-order-by" matTooltip="Switch order (descending or ascending)" matTooltipPosition="left" data-test="switchOrderBy">
               Switch Order
             </button>
           </div>
