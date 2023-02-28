@@ -21,7 +21,7 @@
           <mat-form-field>
             <mat-label>Body</mat-label>
             <input matInput placeholder="Body"
-                  formControlName="body" required>
+                  formControlName="body">
             <mat-error *ngFor="let validation of addTodoValidationMessages.body">
               <mat-error class="error-message" data-test="bodyError"
                         *ngIf="addTodoForm.get('body').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
