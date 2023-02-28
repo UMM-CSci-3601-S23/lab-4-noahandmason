@@ -8,7 +8,7 @@
         <mat-card-content class="flex-col">
           <mat-form-field>
             <mat-label>Owner</mat-label>
-            <input matInput placeholder="Name" formControlName="owner"
+            <input matInput placeholder="Owner" formControlName="owner"
                   required>
             <mat-error *ngFor="let validation of addTodoValidationMessages.owner">
               <mat-error class="error-message" data-test="ownerError"
@@ -21,7 +21,7 @@
           <mat-form-field>
             <mat-label>Body</mat-label>
             <input matInput placeholder="Body"
-                  formControlName="body" required>
+                  formControlName="body">
             <mat-error *ngFor="let validation of addTodoValidationMessages.body">
               <mat-error class="error-message" data-test="bodyError"
                         *ngIf="addTodoForm.get('body').hasError(validation.type) && (addTodoForm.get('body').dirty || addTodoForm.get('body').touched)">
@@ -64,6 +64,7 @@
             mat-button
             type="button"
             color="primary"
+            [disabled]="!addTodoForm.valid"
             type="submit"
             data-test="confirmAddTodoButton"
           >

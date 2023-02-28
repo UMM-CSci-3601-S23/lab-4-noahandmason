@@ -21,9 +21,8 @@ describe('Add user', () => {
     page.addUserButton().should('be.disabled');
     page.getFormField('age').type('20');
     page.addUserButton().should('be.disabled');
-    page.getFormField('email').type('invalid');
+    page.getFormField('status').select('complete');
     page.addUserButton().should('be.disabled');
-    page.getFormField('email').clear().type('user@example.com');
     // all the required fields have valid input, then it should be enabled
     page.addUserButton().should('be.enabled');
   });

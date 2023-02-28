@@ -20,8 +20,8 @@ export class AddUserPage {
       .get(`mat-option[value="${value}"]`).click();
   }
 
-  getFormField(fieldName: string) {
-    return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
+  getFormField(fieldOwner: string) {
+    return cy.get(`mat-form-field [formcontrolowner=${fieldOwner}]`);
   }
 
   getSnackBar() {
