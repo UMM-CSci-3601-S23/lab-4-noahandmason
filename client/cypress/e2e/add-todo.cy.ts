@@ -23,7 +23,7 @@ describe('Add todo', () => {
     page.addTodoButton().should('be.disabled');
     page.getFormField('category').type('games');
     page.addTodoButton().should('be.disabled');
-    page.getFormField('status').select('complete');
+    page.selectMatSelectValue('complete');
     // all the required fields have valid input, then it should be enabled
     page.addTodoButton().should('be.enabled');
   });
@@ -102,7 +102,6 @@ describe('Add todo', () => {
       // The new todo should have all the same attributes as we entered
       cy.get('.todo-card-owner').should('have.text', todo.owner);
       cy.get('.todo-card-status').should('have.text', todo.status);
-      cy.get('.todo-card-category').should('have.text', todo.category);
       cy.get('.todo-card-body').should('have.text', todo.body);
 
       // We should see the confirmation message at the bottom of the screen

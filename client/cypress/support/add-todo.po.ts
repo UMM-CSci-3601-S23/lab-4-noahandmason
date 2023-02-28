@@ -13,11 +13,11 @@ export class AddTodoPage {
     return cy.get('[data-test=confirmAddTodoButton]');
   }
 
-  selectMatSelectValue(select: Cypress.Chainable, value: string) {
+  selectMatSelectValue(value: string) {
     // Find and click the drop down
-    return select.click()
+    cy.get(`mat-select`).as(`selectorThing`).click();
       // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click();
+      cy.get(`mat-option[value="${value}"]`).click();
   }
 
   getFormField(fieldOwner: string) {
@@ -36,7 +36,7 @@ export class AddTodoPage {
     if (newTodo.body) {
       this.getFormField('body').type(newTodo.body);
     }
-    this.selectMatSelectValue(this.getFormField('status'), newTodo.status);
+    this.selectMatSelectValue(newTodo.status);
     return this.addTodoButton().click();
   }
 }
